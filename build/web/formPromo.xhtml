@@ -15,21 +15,21 @@
                         <form class="form-horizontal" jsf:id="formHotel">
                             <div class="alert #{novaPromo.mensagem.tipoMensagem}" jsf:id="mensagem">
                                 #{novaPromo.mensagem.texto}
-                            </div>
+                            </div>                            
                             <div class="form-group">                           
                                 <label class="col-sm-2 control-label" for="url">URL</label>
                                 <div class="col-sm-4">
                                     <h:selectOneMenu id="url" value="#{novaPromo.dadosPromo.setUrl}">
-                                    <f:selectItem itemLabel="Selecione um site" itemValue=""/>
+                                    <f:selectItem itemLabel="Selecione um site" itemValue="-1"/>
                                     <f:selectItems value="#{novaPromo.listaUrl}"/>
                                 </h:selectOneMenu>
                                     <h:message for="url" class="text text-danger"/>
                                 </div>
                                 <label class="col-sm-2 control-label" for="hotel">Hotel</label>
                                 <div class="col-sm-4">
-                                    <h:selectOneMenu id="hotel" value="#{novaPromo.selectedHotelIndex}">
+                                    <h:selectOneMenu id="hotel" value="#{novaPromo.dadosPromo.setCnpj}">
                                         <f:selectItem itemLabel="Selecione um hotel" itemValue="-1"/>
-                                        <f:selectItems value="#{novaPromo.nomeHoteis}" var="c" itemLabel="#{c}" itemValue="#{novaPromo.nomeHoteis.indexOf(c)}" />
+                                        <f:selectItems value="#{novaPromo.listaHoteis}" var="c" itemValue="#{c.cnpj}" itemLabel="#{c.nome} - #{c.cidade}" />
                                     </h:selectOneMenu>
                                     <h:message for="hotel" class="text text-danger"/>
                                 </div>

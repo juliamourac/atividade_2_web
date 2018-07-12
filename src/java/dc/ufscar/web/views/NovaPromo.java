@@ -17,7 +17,6 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.logging.Logger;
 
 /**
  *
@@ -35,15 +34,13 @@ public class NovaPromo implements Serializable {
     SiteReservaDAO rsdao;
 
     List<String> listaUrl;
-    List<String> nomeHoteis;
-    List<String> cnpjHoteis;
-    String selectedHotelIndex;
+    List<Hotel> listaHoteis;
 
     MensagemBootstrap mensagem;
 
     Promo dadosPromo;
     
-    public void NovaPromo() {
+    public void NovaPromo(){
         hdao = new HotelDAO();
         pdao = new PromoDAO();
         rsdao = new SiteReservaDAO();
@@ -53,7 +50,7 @@ public class NovaPromo implements Serializable {
     }
 
     public List<String> getListaUrl() throws SQLException {
-        return listaUrl = rsdao.listaUrlSiteReservas();
+        return listaUrl= rsdao.listaUrlSiteReservas();
     }
 
     public void setListaUrl(List<String> listaUrl) {
@@ -76,48 +73,26 @@ public class NovaPromo implements Serializable {
         this.dadosPromo = dadosPromo;
     }
 
-    public List<String> getNomeHoteis() throws SQLException {
-        return nomeHoteis = hdao.listaNomeHoteis();
+    public List<Hotel> getListaHoteis() throws SQLException {
+        return listaHoteis = hdao.listarTodosHoteis();
     }
 
-    public void setNomeHoteis(List<String> nomeHoteis) {
-        this.nomeHoteis = nomeHoteis;
-    }
-
-    public List<String> getCnpjHoteis() throws SQLException {
-        return cnpjHoteis = hdao.listaCNPJ();
-    }
-
-    public void setCnpjHoteis(List<String> cnpjHoteis) {
-        this.cnpjHoteis = cnpjHoteis;
-    }
-
-    public String getSelectedHotelIndex() {
-        return selectedHotelIndex;
-    }
-
-    public void setSelectedHotelIndex(String selectedHotelIndex) {
-        this.selectedHotelIndex = selectedHotelIndex;
+    public void setListaHoteis(List<Hotel> listaHoteis) {
+        this.listaHoteis = listaHoteis;
     }
     
     public void cadastrar() throws SQLException{
         //Verifica URL
-        if(dadosPromo.getUrl().equals(""))
+        if(dadosPromo.getUrl().equals("-1"))
             mensagem.setMensagem(true, "Escolha uma URL existente.", MensagemBootstrap.TipoMensagem.TIPO_ERRO);
         else{
-            //Verifica CNPJ
-            if(this.getSelectedHotelIndex().equals("-1"))
-                mensagem.setMensagem(true, "Escolha um Hotel existente.", MensagemBootstrap.TipoMensagem.TIPO_ERRO);
+            //verifica CNPJ
+            if(dadosPromo.getCnpj().equals("-1"))
+                mensagem.setMensagem(true, "Escolha um CNPJ existente.", MensagemBootstrap.TipoMensagem.TIPO_ERRO);
             else{
-                int n = Integer.parseInt(selectedHotelIndex);
-                dadosPromo.setCnpj(getCnpjHoteis().get(n));
                 
-                //Verifica se DataInicio e DataFim são a mesma data
-                if(dadosPromo.getDataInicio().equals(dadosPromo.getDataFim()))
-                    mensagem.setMensagem(true, "A data de Início e de Fim devem ser diferentes.", MensagemBootstrap.TipoMensagem.TIPO_ERRO);
             }
         }
-    }
-    
+    }    
     
 }

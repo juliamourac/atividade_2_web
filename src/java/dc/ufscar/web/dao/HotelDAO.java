@@ -28,7 +28,7 @@ public class HotelDAO {
     DataSource dataSource;
     
     private final String CRIAR_HOTEL_SQL = "INSERT INTO Hotel values (?,?,?,?)";
-    private final String BUSCAR_HOTEL_SQL = "SELECT nome, cidade FROM Hotel";
+    private final String BUSCAR_HOTEL_SQL = "SELECT cnpj, nome, cidade FROM Hotel";
     private final String BUSCAR_HOTEL_SQL_CIDADE = "SELECT nome, cidade FROM Hotel WHERE cidade = ?";
     private final String BUSCA_LOGIN = "SELECT cnpj, senha FROM Hotel WHERE cnpj=? AND senha=?";
     private final String BUSCA_CNPJ = "SELECT cnpj FROM Hotel WHERE cnpj=?";
@@ -55,6 +55,7 @@ public class HotelDAO {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     Hotel h = new Hotel();
+                    h.setCnpj(rs.getString("cnpj"));
                     h.setNome(rs.getString("nome"));
                     h.setCidade(rs.getString("cidade"));
                     ret.add(h);
