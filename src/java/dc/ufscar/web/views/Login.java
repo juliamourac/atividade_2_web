@@ -65,12 +65,9 @@ public class Login implements Serializable {
     }
 
     public void logar() throws SQLException {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        Flash flash = facesContext.getExternalContext().getFlash();
-        flash.setKeepMessages(true);
         try {
             if (usuario.equals("admin") && senha.equals("admin")) {
-                
+                //Loga como admin
             } else if (hdao.logar(usuario, senha)) {
                 //loga como hotel
             } else if (srdao.logar(usuario, senha)) {

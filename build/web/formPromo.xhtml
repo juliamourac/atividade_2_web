@@ -19,7 +19,7 @@
                             <div class="form-group">                           
                                 <label class="col-sm-2 control-label" for="url">URL</label>
                                 <div class="col-sm-4">
-                                    <h:selectOneMenu id="url" value="#{novaPromo.dadosPromo.setUrl}">
+                                    <h:selectOneMenu id="url" value="#{novaPromo.dadosPromo.url}">
                                     <f:selectItem itemLabel="Selecione um site" itemValue="-1"/>
                                     <f:selectItems value="#{novaPromo.listaUrl}"/>
                                 </h:selectOneMenu>
@@ -27,7 +27,7 @@
                                 </div>
                                 <label class="col-sm-2 control-label" for="hotel">Hotel</label>
                                 <div class="col-sm-4">
-                                    <h:selectOneMenu id="hotel" value="#{novaPromo.dadosPromo.setCnpj}">
+                                    <h:selectOneMenu id="hotel" value="#{novaPromo.dadosPromo.cnpj}">
                                         <f:selectItem itemLabel="Selecione um hotel" itemValue="-1"/>
                                         <f:selectItems value="#{novaPromo.listaHoteis}" var="c" itemValue="#{c.cnpj}" itemLabel="#{c.nome} - #{c.cidade}" />
                                     </h:selectOneMenu>

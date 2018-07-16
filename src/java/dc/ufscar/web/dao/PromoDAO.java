@@ -27,13 +27,12 @@ public class PromoDAO {
     @Resource(name = "jdbc/ReservaHotelDBLocal")
     DataSource dataSource;
 
-    private final String CRIAR_PROMO = "INSERT INTO Promos (?,?,?,?,?)";
+    private final String CRIAR_PROMO = "INSERT INTO Promos (url, cnpj, preco, dataInicio, dataFim) VALUES (?,?,?,?,?)";
     private final String BUSCAR_PROMO_SITE = "SELECT * FROM Promos WHERE url=?";
     private final String BUSCAR_PROMO_HOTEL = "SELECT * FROM Promos WHERE cnpj=?";
     private final String LISTAR_PROMOS = "SELECT * FROM Promos";
 
-    //public PromoDAO(DataSource dataSource){ this.dataSource = dataSource; }
-    public Promo gravarPromo(Promo p) {
+    public Promo gravarPromo(Promo p) throws SQLException {
         try (Connection con = dataSource.getConnection();
                 PreparedStatement ps = con.prepareStatement(CRIAR_PROMO);) {
             ps.setString(1, p.getUrl());
@@ -41,10 +40,7 @@ public class PromoDAO {
             ps.setString(3, p.getPreco());
             ps.setString(4, p.getDataInicio());
             ps.setString(5, p.getDataFim());
-            ps.executeQuery();
-            con.close();
-        } catch (Exception e) {
-
+            ps.executeUpdate();
         }
         return p;
     }
